@@ -1,0 +1,76 @@
+<div class="dashboard-grid-container">
+    <section id="lomba" class="dashboard-section soft-ui-card" data-aos="fade-left">
+        <h2 class="section-title"><i class="fa-solid fa-trophy section-icon"></i> Daftar Lomba</h2>
+        
+        <div class="content-group">
+            <div class="contest-stats soft-ui-element">
+                <div class="stat-item">Total Lomba: <span id="totalContests" class="stat-value">0</span></div>
+                <div class="stat-item">Lomba Mendatang: <span id="upcomingContests" class="stat-value">0</span></div>
+            </div>
+        </div>
+
+        <div class="sub-section">
+            <h3 class="sub-section-title">Tambah/Edit Lomba</h3>
+            <form id="contestForm" class="data-form">
+                <input type="hidden" id="contestId">
+                <div class="form-group">
+                    <label for="contestName">Nama Lomba</label>
+                    <input type="text" id="contestName" class="form-control" placeholder="Contoh: Balap Karung" required>
+                </div>
+                <div class="form-group">
+                    <label for="contestDetails">Detail Lomba</label>
+                    <input type="text" id="contestDetails" class="form-control" placeholder="Contoh: Anak-anak (5-12 tahun)" required>
+                </div>
+                <div class="form-group">
+                    <label for="contestDate">Tanggal</label>
+                    <input type="date" id="contestDate" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="contestTime">Waktu</label>
+                    <input type="time" id="contestTime" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="contestPrize">Hadiah</label>
+                    <input type="text" id="contestPrize" class="form-control" placeholder="Contoh: Rp 200K" required>
+                </div>
+                <div class="form-group">
+                    <label for="contestStatus">Status Lomba</label>
+                    <select id="contestStatus" class="form-control" required>
+                        <option value="upcoming">Akan Datang</option>
+                        <option value="ongoing">Sedang Berlangsung</option>
+                        <option value="finished">Selesai</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="contestWinner">Pemenang (Opsional, setelah lomba selesai)</label>
+                    <input type="text" id="contestWinner" class="form-control" placeholder="Contoh: Juara 1: Budi, Juara 2: Ani">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary"><span>Simpan Lomba</span></button>
+                    <button type="button" id="cancelEditContestBtn" class="btn btn-secondary hidden"><span>Batal Edit</span></button>
+                </div>
+            </form>
+        </div>
+        <div class="sub-section">
+            <h3 class="sub-section-title">Daftar Lomba Lengkap</h3>
+            <div class="data-table-container">
+                <table class="data-table" id="contestTransactionsTable">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Detail</th>
+                            <th>Waktu</th>
+                            <th>Hadiah</th>
+                            <th>Status</th>
+                            <th>Pemenang</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contestTransactionsTableBody">
+                        <tr><td colspan="7" class="text-center">Memuat lomba...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>

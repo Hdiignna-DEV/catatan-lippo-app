@@ -1,0 +1,1391 @@
+/* css/new-style.css */
+
+/* --- Custom Properties (CSS Variables) --- */
+:root {
+    --lippo-blue-primary: #0060B6; /* Main Lippo Blue */
+    --lippo-blue-secondary: #007BFF; /* Slightly brighter for accents */
+    --lippo-gold-accent: #FFD700; /* Gold for highlights */
+    
+    --bg-light: #E0E5EC; /* Main background color, light neumorphism base */
+    --bg-extra-light: #F0F2F5; /* Slightly lighter for inner elements */
+    --color-white: #FFFFFF; /* Pure white for high contrast */
+
+    --text-primary: #333333; /* Dark text */
+    --text-secondary: #7F8C8D; /* Softer gray text */
+    --text-heading: #2F3645; /* Darker text for headings */
+
+    --shadow-light-source: #FFFFFF; /* Top-left light source for neumorphism */
+    --shadow-dark-source: #A3B1C6; /* Bottom-right dark source for neumorphism */
+
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 24px; /* Larger radius for main cards */
+
+    --font-family-base: 'Inter', sans-serif;
+    --font-size-base: 16px;
+    --line-height-base: 1.6;
+
+    /* Status Colors */
+    --status-success: #27AE60; /* Green */
+    --status-danger: #E74C3C;  /* Red */
+    --status-info: #0060B6;    /* Lippo Blue Primary for info toasts */
+}
+
+/* --- Base Styles --- */
+* {
+    box-sizing: border-box; /* Pastikan ini ada dan konsisten */
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    /* PENTING: Menghapus overflow-x: hidden agar tabel bisa scroll HORIZONTAL secara alami */
+    /* Jika ini tetap ada, tabel tidak akan bisa scroll, tapi akan memotong atau membuat halaman lebar */
+    /* overflow-x: hidden; */ 
+}
+
+body {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--text-primary);
+    background-color: var(--bg-light);
+    background-image: url('../images/pattern-subtle.svg'); /* Subtle background pattern */
+    background-repeat: repeat;
+    background-size: 150px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding-top: 60px; /* Space for fixed header on mobile */
+    min-height: 100vh; /* Pastikan body mengambil tinggi penuh viewport */
+    display: flex; /* Jadikan body flex container */
+    flex-direction: column; /* Tata elemen-elemen anak secara vertikal */
+    /* Pastikan tidak ada lebar yang memaksa scroll horizontal */
+    width: 100%;
+    overflow-x: hidden; /* Tambahkan ini hanya untuk body agar konten tidak keluar jika ada elemen yang meluber tidak sengaja */
+}
+
+a {
+    color: var(--lippo-blue-primary);
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+a:hover {
+    color: var(--lippo-blue-secondary);
+    transform: translateY(-2px);
+}
+
+ul {
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-base);
+    color: var(--text-heading);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+/* Penyesuaian ukuran font untuk heading agar lebih responsif di mobile */
+h1 { font-size: clamp(2rem, 6vw, 2.8rem); font-weight: 800; line-height: 1.2; } /* Menggunakan clamp untuk font size responsif */
+h2 { font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 800; }
+h3 { font-size: clamp(1.2rem, 4vw, 1.6rem); font-weight: 700; }
+h4 { font-size: clamp(1rem, 3.5vw, 1.3rem); font-weight: 600; }
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* --- Utility Classes --- */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-left { text-align: left; }
+
+/* Status Colors */
+.text-success { color: var(--status-success) !important; }
+.text-danger { color: var(--status-danger) !important; }
+.text-info { color: var(--status-info) !important; }
+
+/* --- Global Content Wrapper --- */
+.content-wrapper-outer {
+    max-width: 100%; /* Ubah menjadi 100% untuk mobile agar mengisi lebar sepenuhnya */
+    margin: 0 auto;
+    padding: 0; /* Hapus padding di sini, akan ditangani di app-main-content */
+    box-sizing: border-box; /* Penting agar padding tidak menyebabkan overflow */
+}
+
+
+/* --- Neumorphism / Soft UI Styling --- */
+.soft-ui-card, .soft-ui-element {
+    background-color: var(--bg-light);
+    border-radius: var(--border-radius-md); /* Default radius for elements */
+    box-shadow: 
+        7px 7px 15px var(--shadow-dark-source),
+        -7px -7px 15px var(--shadow-light-source);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth transition for neumorphism */
+    position: relative; /* For interactive effects */
+}
+
+/* Inset effect for some elements (e.g., input fields, smaller details) */
+.soft-ui-element.inset, .form-control {
+    border-radius: var(--border-radius-sm); /* Smaller radius for inset elements */
+    box-shadow: 
+        inset 5px 5px 10px var(--shadow-dark-source),
+        inset -5px -5px 10px var(--shadow-light-source);
+    background-color: var(--bg-extra-light); /* Lighter background for inset elements */
+}
+
+/* Pressed effect for buttons or active states */
+.soft-ui-element.pressed, .btn:active, .btn.active {
+    border-radius: var(--border-radius-sm);
+    box-shadow: 
+        inset 3px 3px 7px var(--shadow-dark-source),
+        inset -3px -3px 7px var(--shadow-light-source);
+    transform: translateY(0); /* Ensure no lift when pressed */
+}
+
+/* Hover effect for soft-ui elements (default behavior) */
+/* Non-aktifkan hover transform di mobile */
+.soft-ui-element:hover:not(.inset):not(.pressed) {
+    transform: none; 
+    box-shadow: 
+        7px 7px 15px var(--shadow-dark-source),
+        -7px -7px 15px var(--shadow-light-source); /* Keep default shadow */
+}
+
+/* --- Main Header --- */
+.main-header {
+    background-color: var(--bg-light);
+    padding: 0.8rem 0; /* Smaller padding for mobile header */
+    box-shadow: var(--shadow-light);
+    position: fixed; /* Fixed header */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom: 3px solid var(--lippo-gold-accent);
+}
+
+.main-header .header-container {
+    max-width: 1200px; /* Constrain header content width */
+    margin: 0 auto;
+    padding: 0 1.5rem; /* Consistent padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Pastikan ini 100% untuk mengisi header */
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.brand-logo .logo-image {
+    height: 40px; /* Adjusted size for mobile */
+    transition: transform 0.3s ease;
+    border-radius: 50%; /* Membuat logo menjadi bulat */
+}
+.brand-logo .logo-image:hover {
+    transform: scale(1.05) rotate(-5deg);
+}
+.brand-logo .logo-text {
+    font-family: var(--font-family-base);
+    font-weight: 800;
+    font-size: 1.5rem; /* Adjusted for mobile */
+    color: var(--text-heading);
+    letter-spacing: -0.5px;
+}
+.brand-logo .logo-accent {
+    color: var(--lippo-blue-primary);
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.8rem; /* Adjusted for mobile */
+    color: var(--lippo-blue-primary);
+    padding: 0.5rem;
+    display: block; /* Always show for mobile nav */
+    z-index: 1001; /* Ensure it's above the nav */
+    transition: color 0.3s ease;
+}
+.menu-toggle:hover {
+    color: var(--lippo-gold-accent);
+}
+
+.main-nav {
+    position: absolute; /* Mobile nav positioning */
+    top: 60px; /* Below the header */
+    left: 0;
+    width: 100%;
+    background-color: var(--lippo-blue-primary); /* Solid color for mobile nav bg */
+    box-shadow: var(--shadow-medium);
+    padding: 1rem 0; /* Adjusted padding */
+    flex-direction: column; 
+    border-bottom-left-radius: var(--border-radius-md);
+    border-bottom-right-radius: var(--border-radius-md);
+    animation: slideDownFadeIn 0.3s ease-out forwards;
+    z-index: 999; 
+}
+
+.main-nav .nav-links {
+    display: flex; /* Tambahkan ini agar menu item tampil flex */
+    flex-direction: column; /* Pastikan menu item tersusun vertikal */
+    width: 100%; /* Ensure inner ul takes full width */
+}
+
+.main-nav .nav-links li {
+    text-align: center;
+    width: 100%; /* Each list item takes full width */
+}
+.main-nav .nav-links a {
+    display: block;
+    padding: 0.8rem 1rem;
+    color: var(--color-white); /* Warna teks default untuk mobile nav */
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease; /* Tambah color untuk transisi warna */
+}
+.main-nav .nav-links a:hover {
+    /* Untuk mobile, kita tidak ingin ada efek transform, tapi background dan warna bisa berubah ringan */
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: none; /* Pastikan tidak ada translasi di mobile */
+    color: var(--color-white); /* Pastikan warna teks tetap sama di mobile hover */
+}
+.main-nav .nav-links a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: 700;
+}
+
+
+/* --- App Main Content --- */
+.app-main-content {
+    flex-grow: 1;
+    padding: 1rem; /* Padding seragam 1rem di semua sisi untuk mobile */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box; /* Penting */
+    /* Pastikan tidak ada min-width atau max-width yang menyebabkan overflow */
+    min-width: 0;
+}
+
+#content-area {
+    width: 100%;
+    animation: fadeIn 0.5s ease-out;
+    box-sizing: border-box; /* Penting */
+    min-width: 0; /* Pastikan tidak ada min-width yang menyebabkan overflow */
+}
+
+/* --- Hero Section (Dashboard Page Specific) --- */
+.hero-section {
+    padding: 2rem;
+    margin-bottom: 0;
+    border-radius: var(--border-radius-lg);
+    background-color: var(--bg-light);
+    box-shadow: 
+        10px 10px 20px var(--shadow-dark-source),
+        -10px -10px 20px var(--shadow-light-source);
+    width: 100%; /* Ensure hero section uses full available width */
+    box-sizing: border-box;
+}
+
+.hero-inner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+    width: 100%; /* Ensure inner container uses full available width */
+}
+
+.hero-main-title {
+    font-size: clamp(2.2rem, 7vw, 3rem); /* Lebih responsif */
+    color: var(--lippo-blue-primary);
+    margin-bottom: 0.5rem;
+}
+.hero-sub-title {
+    font-size: clamp(1.1rem, 3.5vw, 1.3rem); /* Lebih responsif */
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.hero-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); /* Lebih fleksibel, min 130px */
+    gap: 1rem;
+    width: 100%;
+}
+
+.hero-stats-grid .stat-item {
+    padding: 0.8rem;
+    border-radius: var(--border-radius-md);
+    background-color: var(--bg-extra-light);
+    box-shadow: 
+        inset 3px 3px 7px var(--shadow-dark-source),
+        inset -3px -3px 7px var(--shadow-light-source);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+}
+.hero-stats-grid .stat-item:hover { /* Non-aktifkan hover transform di mobile */
+    transform: none; 
+    box-shadow: 
+        inset 3px 3px 7px var(--shadow-dark-source),
+        inset -3px -3px 7px var(--shadow-light-source); /* Keep default shadow for inset */
+}
+.hero-stats-grid .stat-item .stat-icon {
+    font-size: 1.8rem;
+    color: var(--lippo-gold-accent);
+    margin-bottom: 0.4rem;
+}
+.hero-stats-grid .stat-item .stat-number {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--lippo-blue-primary);
+}
+.hero-stats-grid .stat-item .stat-label {
+    font-size: 0.8rem; /* Slightly larger for mobile */
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.hero-illustration {
+    display: none; /* Tetap sembunyikan di mobile */
+    max-width: 350px;
+    margin-top: 2rem;
+}
+.hero-illustration img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+/* --- Dashboard Grid Container (specific for sections like Keuangan, Lomba, etc.) --- */
+.dashboard-grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0;
+    width: 100%; /* Ensure it uses full available width */
+    box-sizing: border-box; /* Penting */
+    min-width: 0; /* Pastikan tidak ada min-width yang menyebabkan overflow */
+}
+
+/* --- Dashboard Section (For Keuangan, Lomba, Doorprize, Jadwal pages) --- */
+.dashboard-section {
+    padding: 1.5rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-medium);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid var(--bg-extra-light);
+    margin-bottom: 0;
+    width: 100%; /* Ensure it uses full available width */
+    box-sizing: border-box;
+    min-width: 0; /* Pastikan tidak ada min-width yang menyebabkan overflow */
+}
+.dashboard-section:hover { /* Non-aktifkan hover transform di mobile */
+    transform: none;
+    box-shadow: var(--shadow-medium);
+}
+
+.section-title {
+    font-size: clamp(1.6rem, 5vw, 2rem); /* Lebih responsif */
+    font-weight: 800;
+    color: var(--lippo-blue-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--bg-extra-light);
+}
+.section-icon {
+    font-size: clamp(1.6rem, 5vw, 2rem); /* Lebih responsif */
+    color: var(--lippo-gold-accent);
+}
+
+.content-group {
+    margin-bottom: 1.5rem;
+}
+
+.sub-section {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--shadow-dark-source);
+}
+
+.sub-section-title {
+    font-size: clamp(1.2rem, 4vw, 1.4rem); /* Lebih responsif */
+    font-weight: 700;
+    color: var(--text-heading);
+    margin-bottom: 1rem;
+}
+
+/* --- Finance Summary --- */
+.finance-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); /* Auto-fit untuk fleksibilitas */
+    gap: 1rem;
+}
+
+.summary-box {
+    padding: 1rem;
+    border-radius: var(--border-radius-md);
+    text-align: center;
+    background-color: var(--bg-light);
+}
+.summary-box.income-box { background-color: #EBF8F1; }
+.summary-box.expense-box { background-color: #F8EBEB; }
+.summary-box.balance-box { background-color: #EBF2F8; }
+.summary-box.avg-box { background-color: #FDFCEE; }
+
+
+.summary-label {
+    font-size: 0.9rem; /* Slightly larger for mobile */
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+    display: block;
+}
+.summary-amount {
+    font-size: clamp(1.5rem, 4.5vw, 1.8rem); /* Lebih responsif */
+    font-weight: 800;
+    color: var(--text-primary);
+}
+.income-box .summary-amount { color: var(--status-success); }
+.expense-box .summary-amount { color: var(--status-danger); }
+.balance-box .summary-amount { color: var(--lippo-blue-primary); }
+.avg-box .summary-amount { color: var(--lippo-gold-accent); }
+
+/* --- Charts --- */
+.chart-container {
+    padding: 0.8rem;
+    border-radius: var(--border-radius-md);
+    height: 250px; /* Tinggi tetap untuk chart */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.5rem;
+    background-color: var(--bg-light);
+    width: 100%; /* Pastikan chart container mengambil lebar penuh */
+    box-sizing: border-box;
+}
+
+/* --- Expense Details List --- */
+.expense-details-list {
+    margin-top: 1rem;
+}
+.expense-details-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--bg-extra-light);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+.expense-details-list li:last-child {
+    border-bottom: none;
+}
+.expense-details-list li span:first-child {
+    font-weight: 600;
+}
+
+/* --- Buttons --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.5rem;
+    border-radius: var(--border-radius-md);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+        5px 5px 10px var(--shadow-dark-source),
+        -5px -5px 10px var(--shadow-light-source);
+    color: var(--text-primary);
+    width: auto; /* Agar tombol tidak selalu 100% lebar */
+}
+
+.btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.btn:hover { /* Non-aktifkan hover transform di mobile */
+    transform: none;
+    box-shadow: 
+        5px 5px 10px var(--shadow-dark-source),
+        -5px -5px 10px var(--shadow-light-source);
+}
+
+.btn:active, .btn.active {
+    box-shadow: 
+        inset 3px 3px 7px var(--shadow-dark-source),
+        inset -3px -3px 7px var(--shadow-light-source);
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background-color: var(--lippo-blue-primary);
+    color: var(--color-white);
+    box-shadow: 
+        5px 5px 10px rgba(0, 96, 182, 0.4),
+        -5px -5px 10px var(--shadow-light-source);
+}
+.btn-primary:hover {
+    background-color: var(--lippo-blue-secondary);
+    box-shadow: 
+        8px 8px 16px rgba(0, 96, 182, 0.5),
+        -8px -8px 16px var(--shadow-light-source);
+}
+.btn-primary:active {
+    background-color: var(--lippo-blue-dark);
+    box-shadow: 
+        inset 3px 3px 7px rgba(0, 96, 182, 0.6),
+        inset -3px -3px 7px var(--shadow-light-source);
+}
+
+.btn-secondary {
+    background-color: var(--bg-light);
+    color: var(--lippo-blue-primary);
+    border: 1px solid var(--lippo-blue-primary);
+}
+.btn-secondary:hover {
+    background-color: var(--bg-extra-light);
+}
+.btn-secondary:active {
+    background-color: var(--bg-light);
+    color: var(--lippo-blue-secondary);
+}
+
+.btn-danger {
+    background-color: var(--status-danger);
+    color: var(--color-white);
+    box-shadow: 
+        5px 5px 10px rgba(231, 76, 60, 0.4),
+        -5px -5px 10px var(--shadow-light-source);
+}
+.btn-danger:hover {
+    background-color: #C0392B;
+}
+.btn-danger:active {
+    background-color: #A93226;
+    box-shadow: 
+        inset 3px 3px 7px rgba(231, 76, 60, 0.6),
+        inset -3px -3px 7px var(--shadow-light-source);
+}
+
+.action-buttons-group {
+    display: flex;
+    flex-direction: column; /* Stack vertically on mobile */
+    gap: 1rem;
+    margin-top: 2rem;
+    width: 100%; /* Pastikan grup tombol mengambil lebar penuh */
+}
+.action-buttons-group .btn {
+    width: 100%; /* Tombol di dalam grup mengambil lebar penuh */
+}
+
+
+/* --- Forms --- */
+.data-form {
+    display: grid;
+    gap: 1rem;
+}
+
+.form-group {
+    margin-bottom: 0.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+.form-control:focus {
+    outline: none;
+    background-color: var(--color-white);
+    box-shadow: 
+        inset 3px 3px 7px var(--shadow-dark-source),
+        inset -3px -3px 7px var(--shadow-light-source),
+        0 0 0 3px rgba(0, 96, 182, 0.2);
+}
+
+.generate-coupon-area {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--shadow-dark-source);
+}
+.generate-coupon-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--lippo-blue-primary);
+    margin-bottom: 1rem;
+}
+.input-group {
+    display: flex;
+    flex-wrap: wrap; /* Izinkan wrapping pada input group */
+    gap: 0.8rem;
+    align-items: center;
+}
+.input-group .form-control {
+    flex-grow: 1;
+    min-width: 100px; /* Lebar minimum agar tidak terlalu sempit */
+}
+.input-group .btn {
+    flex-shrink: 0;
+    padding: 0.8rem 1.2rem;
+    width: auto; /* Biarkan tombol menyesuaikan konten */
+    /* Jika tombol perlu 100% lebar ketika wrap, tambahkan: width: 100%; */
+}
+.help-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+}
+
+/* --- Tables --- */
+.data-table-container {
+    overflow-x: auto; /* Ini memungkinkan scroll horizontal jika tabel terlalu lebar */
+    border-radius: var(--border-radius-md);
+    box-shadow: 
+        5px 5px 10px var(--shadow-dark-source),
+        -5px -5px 10px var(--shadow-light-source);
+    background-color: var(--bg-light);
+    padding: 0.5rem;
+    width: calc(100% - 1rem); /* Mengurangi 1rem (padding app-main-content) agar tidak ada overflow */
+    margin: 0 auto; /* Tengah tabel container */
+    box-sizing: border-box;
+}
+
+.data-table {
+    width: 100%; /* Pastikan tabel selalu mencoba mengisi 100% lebar yang tersedia */
+    border-collapse: separate;
+    border-spacing: 0;
+    /* min-width: 600px; <--- DIHAPUS UNTUK MOBILE! Ini adalah penyebab utama zoom-out. */
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+}
+
+.data-table thead {
+    background: linear-gradient(to right, var(--lippo-blue-primary), var(--lippo-blue-secondary));
+}
+.data-table th {
+    color: var(--color-white);
+    font-weight: 600;
+    font-size: 0.85rem; /* Slightly larger for better readability on mobile tables */
+    padding: 0.7rem 1rem; /* Adjust padding if needed */
+    text-align: left;
+    white-space: nowrap; /* Mencegah wrap pada header kolom */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.data-table td {
+    font-size: 0.9rem; /* Keep as is or slightly larger */
+    padding: 0.7rem 1rem; /* Adjust padding if needed */
+    text-align: left;
+    border-bottom: 1px solid var(--bg-extra-light);
+    white-space: nowrap; /* Mencegah wrap pada sel, biarkan overflow-x handle */
+    color: var(--text-primary);
+    background-color: var(--bg-extra-light);
+}
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tbody tr:nth-child(even) td {
+    background-color: var(--bg-light);
+}
+
+.data-table tbody tr:hover td { /* Non-aktifkan hover transform di mobile */
+    background-color: var(--lippo-blue-light);
+    cursor: pointer;
+    transform: none;
+}
+
+.table-action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    flex-wrap: wrap; /* Izinkan tombol aksi di tabel untuk wrap */
+}
+.table-action-buttons .btn {
+    padding: 0.4rem 0.6rem; /* Padding lebih kecil untuk tombol di tabel */
+    font-size: 0.7rem; /* Font lebih kecil */
+    border-radius: var(--border-radius-sm);
+    box-shadow: 3px 3px 6px var(--shadow-dark-source), -3px -3px 6px var(--shadow-light-source);
+}
+.table-action-buttons .btn:hover { /* Non-aktifkan hover transform di mobile */
+    transform: none;
+    box-shadow: 3px 3px 6px var(--shadow-dark-source), -3px -3px 6px var(--shadow-light-source);
+}
+.table-action-buttons .btn:active {
+    box-shadow: inset 2px 2px 5px var(--shadow-dark-source), inset -2px -2px 5px var(--shadow-light-source);
+}
+
+/* --- Status Badges --- */
+.status-badge {
+    display: inline-block;
+    padding: 0.2em 0.6em;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--color-white);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+
+.status-badge.status-upcoming { background-color: var(--lippo-blue-primary); }
+.status-badge.status-ongoing { background-color: var(--lippo-gold-accent); color: var(--text-primary);}
+.status-badge.status-finished { background-color: var(--text-secondary); }
+.status-badge.status-available { background-color: var(--status-success); }
+.status-badge.status-taken { background-color: var(--status-danger); }
+
+
+/* --- Doorprize Grid --- */
+.doorprize-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Min lebar lebih kecil untuk lebih banyak kolom */
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+.doorprize-item {
+    padding: 1rem 0.5rem;
+    border-radius: var(--border-radius-md);
+    text-align: center;
+    background-color: var(--bg-extra-light);
+    box-shadow: 
+        inset 3px 3px 7px var(--shadow-dark-source),
+        inset -3px -3px 7px var(--shadow-light-source);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.doorprize-item:hover { /* Non-aktifkan hover transform di mobile */
+    transform: none;
+    box-shadow: 
+        inset 3px 3px 7px var(--shadow-dark-source),
+        inset -3px -3px 7px var(--shadow-light-source);
+}
+
+.doorprize-item.empty {
+    box-shadow: none;
+    border: 2px dashed var(--shadow-dark-source);
+    background-color: transparent;
+    color: var(--text-secondary);
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.doorprize-item.empty .number { font-size: 2rem; color: var(--text-secondary); }
+.doorprize-item.empty .status { font-size: 0.9rem; }
+
+
+.doorprize-item .number {
+    font-size: clamp(1.8rem, 5vw, 2rem); /* Lebih responsif */
+    font-weight: 800;
+    color: var(--lippo-blue-primary);
+    margin-bottom: 0.2rem;
+}
+.doorprize-item .status {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+.doorprize-item .winner, .doorprize-item .detail {
+    font-size: 0.7rem; /* Lebih kecil agar muat */
+    color: var(--text-secondary);
+    margin-top: 0.2rem;
+    word-break: break-word;
+    white-space: normal;
+}
+/* Specific states */
+.doorprize-item.status-available { background-color: #EBF8F1; }
+.doorprize-item.status-available .number { color: var(--status-success); }
+.doorprize-item.status-taken { background-color: #F8EBEB; }
+.doorprize-item.status-taken .number { color: var(--status-danger); }
+
+/* Doorprize Draw Animation */
+.doorprize-item.highlight-draw {
+    animation: highlightPulseGold 0.3s infinite alternate;
+    box-shadow: 
+        inset 3px 3px 7px var(--shadow-dark-source),
+        inset -3px -3px 7px var(--shadow-light-source),
+        0 0 15px var(--lippo-gold-accent);
+    transform: scale(1.05);
+}
+
+@keyframes highlightPulseGold {
+    from { background-color: var(--lippo-gold-accent) !important; color: var(--text-primary) !important; }
+    to { background-color: var(--lippo-gold-dark) !important; color: var(--text-primary) !important; }
+}
+
+/* --- Activity Timeline --- */
+.activity-timeline {
+    position: relative;
+    padding-left: 20px;
+    margin-top: 1.5rem;
+}
+.activity-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--lippo-blue-secondary), var(--lippo-blue-light));
+}
+
+.timeline-item {
+    background-color: var(--bg-light);
+    padding: 1rem;
+    border-radius: var(--border-radius-md);
+    box-shadow: 
+        5px 5px 10px var(--shadow-dark-source),
+        -5px -5px 10px var(--shadow-light-source);
+    margin-bottom: 1rem;
+    position: relative;
+    transition: all 0.3s ease;
+    margin-left: 20px;
+}
+.timeline-item:hover { /* Non-aktifkan hover transform di mobile */
+    transform: none;
+    box-shadow: 
+        5px 5px 10px var(--shadow-dark-source),
+        -5px -5px 10px var(--shadow-light-source);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 1.2rem;
+    width: 15px;
+    height: 15px;
+    background-color: var(--lippo-gold-accent);
+    border-radius: 50%;
+    border: 3px solid var(--bg-light);
+    z-index: 1;
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.timeline-item.empty {
+    box-shadow: none;
+    border: 2px dashed var(--shadow-dark-source);
+    background-color: transparent;
+    color: var(--text-secondary);
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0;
+}
+.timeline-item.empty::before { display: none; }
+
+.timeline-item .time {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--lippo-blue-primary);
+    margin-bottom: 0.2rem;
+}
+.timeline-item .title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    margin-bottom: 0.25rem;
+}
+.timeline-item .description, .timeline-item .location {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+.timeline-item .location {
+    font-style: italic;
+}
+
+/* --- Toast Notification --- */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.toast {
+    padding: 12px 20px;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-medium);
+    color: var(--color-white);
+    font-size: 0.95rem;
+    font-weight: 500;
+    animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* Custom background colors for toasts (matches status colors) */
+.toast.bg-green-500 { background-color: var(--status-success); }
+.toast.bg-red-500 { background-color: var(--status-danger); }
+.toast.bg-lippo-blue-medium { background-color: var(--status-info); }
+
+
+/* --- Animations --- */
+@keyframes slideDownFadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOutDown {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(20px); }
+}
+
+.toast.animate-fade-out-down {
+    animation: fadeOutDown 0.4s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* --- Main Footer --- */
+.main-footer {
+    background-color: var(--bg-light);
+    padding: 1.5rem 1rem;
+    box-shadow: 
+        -7px -7px 15px var(--shadow-light-source),
+        7px 7px 15px var(--shadow-dark-source);
+    text-align: center;
+    margin-top: auto; /* Push footer to the bottom */
+    border-top: 3px solid var(--lippo-gold-accent);
+    width: 100%; /* Pastikan footer mengambil lebar penuh */
+    box-sizing: border-box;
+}
+.main-footer .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+.main-footer p {
+    font-size: 0.85rem; /* Ukuran ini sudah cukup baik, sekitar 13.6px. Jangan terlalu kecil. */
+    color: var(--text-secondary);
+    margin-bottom: 0; /* Hapus margin-bottom default p agar tidak ada ruang berlebihan */
+}
+.main-footer .logo-accent {
+    color: var(--lippo-blue-primary);
+}
+
+
+/* --- Responsive Adjustments (Desktop overrides) --- */
+@media (min-width: 768px) {
+    /* --- General Desktop Layout --- */
+    body {
+        padding-top: 70px; /* Space for larger fixed header on desktop */
+        overflow-x: auto; /* Izinkan scroll horizontal di desktop jika diperlukan */
+    }
+    html {
+        overflow-x: auto; /* Izinkan scroll horizontal di desktop jika diperlukan */
+    }
+    
+    h1 { font-size: 2.8rem; }
+    h2 { font-size: 2.2rem; }
+    h3 { font-size: 1.6rem; }
+    h4 { font-size: 1.3rem; }
+
+    .main-header {
+        padding: 1rem 0;
+    }
+    .main-header .header-container {
+        padding: 0 2rem; /* Wider padding for desktop header */
+    }
+    .brand-logo .logo-image {
+        height: 50px;
+    }
+    .brand-logo .logo-text {
+        font-size: 1.8rem;
+    }
+    .menu-toggle {
+        display: none; /* Hide hamburger on desktop */
+    }
+    .main-nav {
+        position: static; /* Static for desktop nav */
+        top: auto;
+        left: auto;
+        width: auto;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+        display: block !important; /* PASTIKAN display: block UNTUK DESKTOP agar selalu terlihat */
+        animation: none;
+    }
+    .main-nav .nav-links {
+        flex-direction: row; /* Horizontal nav links */
+        gap: 1.5rem;
+    }
+    .main-nav .nav-links a {
+        padding: 0.5rem 0.8rem;
+        color: var(--text-primary); /* Warna teks default untuk desktop nav */
+        font-weight: 600;
+        font-size: var(--font-size-base);
+    }
+    .main-nav .nav-links a:hover {
+        background-color: transparent; /* Pastikan latar belakang tidak berubah di desktop */
+        color: var(--lippo-blue-primary); /* Ubah warna teks di desktop hover */
+        transform: translateY(-2px); /* Aktifkan sedikit translasi di desktop hover */
+    }
+    .main-nav .nav-links a.active {
+        background-color: transparent; /* Pastikan latar belakang tidak berubah di desktop */
+        color: var(--lippo-blue-primary);
+        position: relative;
+    }
+    .main-nav .nav-links a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60%;
+        height: 3px;
+        background-color: var(--lippo-gold-accent);
+        border-radius: 2px;
+    }
+
+
+    .app-main-content {
+        padding: 2rem 0; /* Larger global padding for desktop */
+    }
+    #content-area {
+        padding: 0; /* No padding here, content-wrapper-outer handles it */
+        width: 100%; 
+    }
+    .content-wrapper-outer {
+        padding: 0 2rem; /* Consistent padding for desktop */
+        max-width: 100%; /* Allow content-wrapper-outer to take full width of body */
+    }
+
+
+    /* --- Hero Section (Dashboard) Desktop Layout --- */
+    .hero-section {
+        padding: 3rem;
+        width: auto; /* Allow auto width based on content-wrapper-outer */
+        margin: 0 auto; /* Center it within content-wrapper-outer if it doesn't take full width */
+        max-width: 1200px; /* Specific max-width for hero section for better balance */
+    }
+    .hero-inner-container {
+        display: flex;
+        flex-direction: row;
+        text-align: left;
+        gap: 3rem;
+    }
+    .hero-main-title {
+        font-size: 3.5rem;
+    }
+    .hero-sub-title {
+        font-size: 1.3rem;
+    }
+    .hero-stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+    }
+    .hero-stats-grid .stat-item:hover { /* Aktifkan kembali hover transform di desktop */
+        transform: translateY(-3px);
+        box-shadow: 
+            5px 5px 10px var(--shadow-dark-source),
+            -5px -5px 10px var(--shadow-light-source);
+    }
+    .hero-stats-grid .stat-item .stat-icon {
+        font-size: 2.2rem;
+    }
+    .hero-stats-grid .stat-item .stat-number {
+        font-size: 1.8rem;
+    }
+    .hero-stats-grid .stat-item .stat-label {
+        font-size: 0.85rem;
+    }
+
+    .hero-illustration {
+        display: block;
+        max-width: 40%;
+        margin-top: 0;
+        flex-shrink: 0;
+    }
+
+    /* --- Dashboard Grid Container (for Keuangan, Lomba, Doorprize, Jadwal) Desktop Layout --- */
+    .dashboard-grid-container {
+        grid-template-columns: 1fr; /* Still single column, but will contain wider sections */
+        gap: 0; /* No gap needed between dashboard-sections if they are single items */
+        padding: 0;
+        width: 100%; 
+        max-width: 100%; 
+    }
+
+    /* --- Dashboard Section (For Keuangan, Lomba, Doorprize, Jadwal pages) Desktop Layout --- */
+    .dashboard-section {
+        padding: 2.5rem; /* Larger padding for sections */
+        margin-bottom: 0;
+        width: 100%; /* Explicitly fill its container */
+    }
+    .dashboard-section:hover { /* Aktifkan kembali hover transform di desktop */
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-strong);
+    }
+    .section-title {
+        font-size: 2.2rem;
+        padding-bottom: 1.2rem;
+        margin-bottom: 2rem;
+    }
+    .section-icon {
+        font-size: 2rem;
+    }
+
+    .sub-section-title {
+        font-size: 1.4rem;
+    }
+
+    .finance-summary-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns for desktop */
+        gap: 1.5rem;
+    }
+    .summary-box {
+        padding: 1.2rem;
+    }
+    .summary-label {
+        font-size: 0.9rem;
+    }
+    .summary-amount {
+        font-size: 1.6rem;
+    }
+
+    .chart-container {
+        height: 350px;
+        margin-top: 2rem;
+    }
+
+    .action-buttons-group {
+        flex-direction: row; /* Horizontal layout on desktop */
+        justify-content: flex-start;
+        gap: 1.5rem;
+    }
+    .btn {
+        padding: 1rem 2rem;
+        font-size: 1.05rem;
+        flex-grow: 0;
+        width: auto; /* Reset width for desktop */
+    }
+    .btn:hover { /* Aktifkan kembali hover transform di desktop */
+        transform: translateY(-2px);
+        box-shadow: 
+            8px 8px 16px var(--shadow-dark-source),
+            -8px -8px 16px var(--shadow-light-source);
+    }
+
+    .input-group .btn {
+        padding: 1rem 1.5rem;
+    }
+
+    .data-form {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for desktop forms */
+        gap: 1.5rem;
+    }
+    .form-actions {
+        grid-column: span 2; /* Spans both columns */
+        justify-content: flex-start;
+        flex-direction: row; /* Horizontal buttons */
+        gap: 1.5rem;
+    }
+    .form-control {
+        padding: 1rem;
+        font-size: var(--font-size-base);
+    }
+    .form-group label {
+        font-size: 1rem;
+    }
+    .generate-coupon-title {
+        font-size: 1.2rem;
+    }
+    .input-group {
+        gap: 1rem;
+    }
+    .input-group .btn {
+        width: auto; /* Reset width for desktop */
+    }
+    .help-text {
+        font-size: 0.9rem;
+    }
+
+    .data-table-container {
+        padding: 1rem;
+        width: 100%; /* Reset width for desktop */
+    }
+    .data-table {
+        min-width: 600px; /* Re-introduce min-width for desktop tables for better layout */
+    }
+    .data-table th {
+        padding: 1.2rem 1.5rem;
+        font-size: 0.85rem;
+    }
+    .data-table td {
+        padding: 1.2rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    .data-table tbody tr:hover td { /* Aktifkan kembali hover transform di desktop */
+        transform: scale(1.005);
+    }
+    .table-action-buttons {
+        flex-wrap: nowrap; /* Non-wrap di desktop */
+    }
+    .table-action-buttons .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+    .table-action-buttons .btn:hover { /* Aktifkan kembali hover transform di desktop */
+        transform: translateY(-1px);
+        box-shadow: 5px 5px 10px var(--shadow-dark-source), -5px -5px 10px var(--shadow-light-source);
+    }
+
+    .status-badge {
+        font-size: 0.8rem;
+    }
+
+    .doorprize-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 1.5rem;
+    }
+    .doorprize-item:hover { /* Aktifkan kembali hover transform di desktop */
+        transform: translateY(-3px);
+        box-shadow: 
+            5px 5px 10px var(--shadow-dark-source),
+            -5px -5px 10px var(--shadow-light-source);
+    }
+    .doorprize-item .number {
+        font-size: 2.2rem;
+    }
+    .doorprize-item .status {
+        font-size: 0.9rem;
+    }
+    .doorprize-item .winner, .doorprize-item .detail {
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+    }
+
+    .activity-timeline {
+        padding-left: 30px;
+    }
+    .timeline-item {
+        padding: 1.5rem;
+    }
+    .timeline-item:hover { /* Aktifkan kembali hover transform di desktop */
+        transform: translateX(5px);
+        box-shadow: 
+            8px 8px 16px var(--shadow-dark-source),
+            -8px -8px 16px var(--shadow-light-source);
+    }
+    .timeline-item::before {
+        left: -15px;
+        top: 1.8rem;
+        width: 18px;
+        height: 18px;
+        border-width: 4px;
+    }
+    .timeline-item .time {
+        font-size: 0.95rem;
+    }
+    .timeline-item .title {
+        font-size: 1.3rem;
+    }
+    .timeline-item .description, .timeline-item .location {
+        font-size: 0.95rem;
+    }
+
+    .main-footer {
+        padding: 2.5rem 1rem;
+        margin-top: 4rem;
+    }
+    .main-footer p {
+        font-size: 0.9rem;
+    }
+}
+
+/* @media for larger desktops */
+@media (min-width: 1024px) {
+    .main-header .header-container {
+        padding: 0;
+    }
+    .app-main-content {
+        padding: 2.5rem 0;
+    }
+    #content-area {
+        padding: 0;
+    }
+    .content-wrapper-outer {
+        padding: 0;
+    }
+    /* Larger font sizes for very large screens */
+    h1 { font-size: 4.5rem; }
+    h2 { font-size: 3rem; }
+    h3 { font-size: 2rem; }
+    h4 { font-size: 1.5rem; }
+
+    .hero-main-title {
+        font-size: 4.5rem;
+    }
+    .hero-sub-title {
+        font-size: 1.5rem;
+    }
+    .dashboard-grid-container {
+        gap: 3rem;
+    }
+    .dashboard-section {
+        padding: 3rem;
+    }
+    .finance-summary-grid {
+        gap: 2rem;
+    }
+    .summary-amount {
+        font-size: 1.8rem;
+    }
+    .chart-container {
+        height: 400px;
+    }
+    .data-table-container {
+        padding: 1.5rem;
+    }
+    .doorprize-grid {
+        gap: 1.5rem;
+    }
+    .doorprize-item .number {
+        font-size: 2.5rem;
+    }
+}

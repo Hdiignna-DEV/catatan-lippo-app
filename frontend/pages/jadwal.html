@@ -1,0 +1,74 @@
+<div class="dashboard-grid-container">
+    <section id="jadwal" class="dashboard-section soft-ui-card" data-aos="fade-left">
+        <h2 class="section-title"><i class="fa-solid fa-calendar-alt section-icon"></i> Jadwal Kegiatan</h2>
+        
+        <div class="content-group">
+            <div class="upcoming-schedule-summary soft-ui-element">
+                <h4 class="summary-title">Jadwal Terdekat:</h4>
+                <div id="upcomingScheduleSummary" class="summary-details">
+                    Memuat jadwal terdekat...
+                </div>
+            </div>
+            <div class="activity-timeline" id="activityTimelineDisplay">
+                <div class="timeline-item soft-ui-element empty">
+                    <div class="time"></div>
+                    <div class="title">Memuat Jadwal...</div>
+                </div>
+            </div>
+            <div class="action-buttons-group">
+                <a href="#" class="btn btn-primary"><span>Lihat Lengkap</span></a>
+                <a href="#" class="btn btn-secondary"><span>Reminder</span></a>
+            </div>
+        </div>
+
+        <div class="sub-section">
+            <h3 class="sub-section-title">Tambah/Edit Jadwal</h3>
+            <form id="scheduleForm" class="data-form">
+                <input type="hidden" id="scheduleId">
+                <div class="form-group">
+                    <label for="scheduleTitle">Judul Acara</label>
+                    <input type="text" id="scheduleTitle" class="form-control" placeholder="Contoh: Upacara Bendera" required>
+                </div>
+                <div class="form-group">
+                    <label for="scheduleDescription">Deskripsi</label>
+                    <input type="text" id="scheduleDescription" class="form-control" placeholder="Contoh: Lapangan Poncol • Peserta: Seluruh warga" required>
+                </div>
+                <div class="form-group">
+                    <label for="scheduleDate">Tanggal</label>
+                    <input type="date" id="scheduleDate" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="scheduleTime">Waktu</label>
+                    <input type="time" id="scheduleTime" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="scheduleLocation">Lokasi (Opsional)</label>
+                    <input type="text" id="scheduleLocation" class="form-control" placeholder="Contoh: Balai Warga">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary"><span>Simpan Jadwal</span></button>
+                    <button type="button" id="cancelEditScheduleBtn" class="btn btn-secondary hidden"><span>Batal Edit</span></button>
+                </div>
+            </form>
+        </div>
+        <div class="sub-section">
+            <h3 class="sub-section-title">Daftar Jadwal Lengkap</h3>
+            <div class="data-table-container">
+                <table class="data-table" id="scheduleTransactionsTable">
+                    <thead>
+                        <tr>
+                            <th>Waktu</th>
+                            <th>Judul</th>
+                            <th>Deskripsi</th>
+                            <th>Lokasi</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scheduleTransactionsTableBody">
+                        <tr><td colspan="5" class="text-center">Memuat jadwal...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>

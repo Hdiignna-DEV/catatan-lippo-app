@@ -1,0 +1,86 @@
+<div class="dashboard-grid-container">
+    <section id="keuangan" class="dashboard-section soft-ui-card" data-aos="fade-right">
+        <h2 class="section-title"><i class="fa-solid fa-chart-line section-icon"></i> Rekap Keuangan</h2>
+        <div class="content-group">
+            <div class="finance-summary-grid">
+                <div class="summary-box income-box soft-ui-element">
+                    <div class="summary-label">Total Pemasukan</div>
+                    <div class="summary-amount">Rp 12.500.000</div>
+                </div>
+                <div class="summary-box expense-box soft-ui-element">
+                    <div class="summary-label">Total Pengeluaran</div>
+                    <div class="summary-amount">Rp 8.200.000</div>
+                </div>
+                <div class="summary-box balance-box soft-ui-element">
+                    <div class="summary-label">Sisa Dana</div>
+                    <div class="summary-amount">Rp 4.300.000</div>
+                </div>
+                <div class="summary-box avg-box soft-ui-element">
+                    <div class="summary-label">Rata-rata per KK</div>
+                    <div class="summary-amount">Rp 260.000</div>
+                </div>
+            </div>
+
+            <div class="chart-container soft-ui-element">
+                <canvas id="financeChart"></canvas>
+            </div>
+        </div>
+
+        <div class="sub-section">
+            <h3 class="sub-section-title">Rincian Pengeluaran</h3>
+            <ul class="expense-details-list">
+                <li><span>Dekorasi & Perlengkapan</span><span>Rp 3.500.000</span></li>
+                <li><span>Hadiah Lomba</span><span>Rp 2.800.000</span></li>
+                <li><span>Konsumsi</span><span>Rp 1.200.000</span></li>
+                <li><span>Doorprize</span><span>Rp 700.000</span></li>
+            </ul>
+        </div>
+
+        <div class="sub-section">
+            <h3 class="sub-section-title">Tambah/Edit Transaksi</h3>
+            <form id="financeForm" class="data-form">
+                <input type="hidden" id="financeId"> 
+                <div class="form-group">
+                    <label for="transactionType">Jenis Transaksi</label>
+                    <select id="transactionType" class="form-control" required>
+                        <option value="">Pilih Jenis</option>
+                        <option value="pemasukan">Pemasukan</option>
+                        <option value="pengeluaran">Pengeluaran</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="transactionDescription">Deskripsi</label>
+                    <input type="text" id="transactionDescription" class="form-control" placeholder="Contoh: Donasi Warga, Pembelian Kertas" required>
+                </div>
+                <div class="form-group">
+                    <label for="transactionAmount">Jumlah (Rp)</label>
+                    <input type="number" id="transactionAmount" class="form-control" placeholder="Contoh: 500000" required min="0">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary"><span>Simpan Transaksi</span></button>
+                    <button type="button" id="cancelEditBtn" class="btn btn-secondary hidden"><span>Batal Edit</span></button>
+                </div>
+            </form>
+        </div>
+
+        <div class="sub-section">
+            <h3 class="sub-section-title">Daftar Transaksi Keuangan</h3>
+            <div class="data-table-container">
+                <table class="data-table" id="financeTransactionsTable">
+                    <thead>
+                        <tr>
+                            <th>Tipe</th>
+                            <th>Deskripsi</th>
+                            <th>Jumlah</th>
+                            <th>Tanggal</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="financeTransactionsTableBody">
+                        <tr><td colspan="5" class="text-center">Memuat transaksi...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section> 
+</div>

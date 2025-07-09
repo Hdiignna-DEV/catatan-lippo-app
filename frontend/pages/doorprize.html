@@ -1,0 +1,86 @@
+<div class="dashboard-grid-container">
+    <section id="doorprize" class="dashboard-section soft-ui-card" data-aos="fade-right">
+        <h2 class="section-title"><i class="fa-solid fa-gift section-icon"></i> Kupon Doorprize</h2>
+        
+        <div class="content-group">
+            <div class="doorprize-summary soft-ui-element">
+                <span class="summary-label">Status Kupon:</span>
+                <span id="doorprizeStatusSummary" class="summary-value">Memuat status...</span>
+            </div>
+            <div class="doorprize-grid" id="doorprizeGridDisplay">
+                <div class="doorprize-item soft-ui-element empty">
+                    <div class="number">Memuat</div>
+                    <div class="status">...</div>
+                </div>
+            </div>
+            <div class="prize-list soft-ui-element">
+                <h4 class="prize-list-title">Hadiah Doorprize:</h4>
+                <ul id="doorprizePrizeList">
+                    <li>Memuat daftar hadiah...</li>
+                </ul>
+            </div>
+            <div class="action-buttons-group">
+                <button id="drawDoorprizeBtn" class="btn btn-primary"><span>Undi Kupon</span></button>
+                <a href="#" class="btn btn-secondary"><span>Lihat Semua Kupon</span></a>
+            </div>
+        </div>
+
+        <div class="sub-section">
+            <h3 class="sub-section-title">Tambah/Edit Doorprize</h3>
+            <form id="doorprizeForm" class="data-form">
+                <input type="hidden" id="doorprizeId">
+                <div class="form-group">
+                    <label for="doorprizeNumber">Nomor Kupon</label>
+                    <input type="text" id="doorprizeNumber" class="form-control" placeholder="Contoh: 007" required>
+                </div>
+                <div class="form-group">
+                    <label for="doorprizeStatus">Status Kupon</label>
+                    <select id="doorprizeStatus" class="form-control" required>
+                        <option value="available">Tersedia</option>
+                        <option value="taken">Terambil</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="doorprizeWinner">Pemenang (Opsional)</label>
+                    <input type="text" id="doorprizeWinner" class="form-control" placeholder="Nama pemenang">
+                </div>
+                <div class="form-group">
+                    <label for="doorprizeDetail">Detail Hadiah (Opsional)</label>
+                    <input type="text" id="doorprizeDetail" class="form-control" placeholder="Contoh: Kulkas 1 Pintu">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary"><span>Simpan Doorprize</span></button>
+                    <button type="button" id="cancelEditDoorprizeBtn" class="btn btn-secondary hidden"><span>Batal Edit</span></button>
+                </div>
+            </form>
+            <div class="generate-coupon-area">
+                <h4 class="generate-coupon-title">Generate Kupon Doorprize</h4>
+                <div class="input-group">
+                    <label for="numDoorprizeToGenerate" class="sr-only">Jumlah Kupon</label>
+                    <input type="number" id="numDoorprizeToGenerate" class="form-control" value="10" min="1">
+                    <button type="button" id="generateDoorprizeBtn" class="btn btn-primary"><span>Generate</span></button>
+                </div>
+                <p class="help-text">Ini akan membuat kupon dengan status 'Tersedia' dan nomor berurutan.</p>
+            </div>
+        </div>
+        <div class="sub-section">
+            <h3 class="sub-section-title">Daftar Doorprize Lengkap</h3>
+            <div class="data-table-container">
+                <table class="data-table" id="doorprizeTransactionsTable">
+                    <thead>
+                        <tr>
+                            <th>Nomor</th>
+                            <th>Status</th>
+                            <th>Pemenang</th>
+                            <th>Hadiah</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="doorprizeTransactionsTableBody">
+                        <tr><td colspan="5" class="text-center">Memuat doorprize...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>

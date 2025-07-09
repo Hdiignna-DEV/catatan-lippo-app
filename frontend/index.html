@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatatanLIPPO - HUT RI ke-80 Lingkungan Poncol</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./css/new-style.css"> 
+</head>
+<body x-data="{ openNav: false }">
+    <header class="main-header"> 
+        <div class="header-container">
+            <div class="brand-logo">
+                <img src="./images/lippo.png" alt="Lippo Logo" class="logo-image">
+                <div class="logo-text">Catatan<span class="logo-accent">LIPPO</span></div>
+            </div>
+            <button @click="openNav = !openNav" class="menu-toggle focus:outline-none" aria-controls="main-navigation" :aria-expanded="openNav.toString()">
+                <i x-show="!openNav" class="fa-solid fa-bars"></i>
+                <i x-show="openNav" class="fa-solid fa-xmark"></i>
+            </button>
+            <nav id="main-navigation" class="main-nav" x-show="openNav">
+                <ul class="nav-links">
+                    <li><a href="#dashboard" class="nav-item" data-page="dashboard" @click="openNav = false">Dashboard</a></li>
+                    <li><a href="#keuangan" class="nav-item" data-page="keuangan" @click="openNav = false">Keuangan</a></li>
+                    <li><a href="#lomba" class="nav-item" data-page="lomba" @click="openNav = false">Lomba</a></li>
+                    <li><a href="#doorprize" class="nav-item" data-page="doorprize" @click="openNav = false">Doorprize</a></li>
+                    <li><a href="#jadwal" class="nav-item" data-page="jadwal" @click="openNav = false">Jadwal</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="app-content" class="app-main-content">
+        <div id="content-area">
+            Loading content...
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <p>&copy; 2025 Catatan<span class="logo-accent">LIPPO</span>. Hdiignna DEV.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="./js/new-script.js"></script> 
+</body>
+</html>
